@@ -62,7 +62,7 @@ class PostController extends Controller {
             }
         }
 
-        return $this->render('CMSBlogBundle:Post:edit.html.twig', array('form' => $form->createView(), 'form_path' => $this->generateUrl('post_new')));
+        return $this->render('CMSBlogBundle:Post:new.html.twig', array('form' => $form->createView()));
         
     }
 
@@ -91,7 +91,7 @@ class PostController extends Controller {
             }
         }
 
-        return $this->render('CMSBlogBundle:Post:edit.html.twig', array('form' => $form->createView(), 'form_path' => $this->generateUrl('post_edit', array('id' => $post->getId())), 'item' => $post));
+        return $this->render('CMSBlogBundle:Post:edit.html.twig', array('form' => $form->createView(), 'item' => $post));
         
     }
 
