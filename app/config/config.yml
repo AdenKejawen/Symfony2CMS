@@ -44,6 +44,7 @@ doctrine:
         auto_generate_proxy_classes: %kernel.debug%
         auto_mapping: true
         mappings:
+            StofDoctrineExtensionsBundle: false
             CMSDoctrineExtensionsBundle: false
 
 # Swiftmailer Configuration
@@ -56,6 +57,11 @@ swiftmailer:
 jms_security_extra:
     secure_controllers:  true
     secure_all_services: false
+    
+stof_doctrine_extensions:
+    default_locale: ru_RU
+    orm:
+        default: ~
         
 cms_doctrine_extensions:
     orm:

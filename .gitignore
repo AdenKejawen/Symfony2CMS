@@ -3,3 +3,5 @@ app/cache/*
 app/logs/*
 web/bundles/
 web/uploads/
+.settings
+.project
