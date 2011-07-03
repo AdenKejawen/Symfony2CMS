@@ -1,0 +1,16 @@
+{% extends "::layout.html.twig" %}
+{% form_theme form 'CMSBlogBundle:Form:fields.html.twig' %}
+
+{% block content %}
+
+    <form action="{{ form_path }}" method="post" {{ form_enctype(form) }}>
+        {{ form_errors(form) }}
+    
+        {{ form_row(form.title) }}
+        {{ form_row(form.body) }}
+        {{ form_row(form.image, {'value': item.image}) }}
+    
+        <input type="submit" />
+    </form>
+
+{% endblock %}

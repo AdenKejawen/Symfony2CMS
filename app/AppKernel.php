@@ -17,6 +17,12 @@ class AppKernel extends Kernel
             new Symfony\Bundle\AsseticBundle\AsseticBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new JMS\SecurityExtraBundle\JMSSecurityExtraBundle(),
+            new FOS\UserBundle\FOSUserBundle(),
+            new Avalanche\Bundle\ImagineBundle\AvalancheImagineBundle(),
+            new CMS\System\Bundle\CoreBundle\CMSCoreBundle(),
+            new CMS\System\Bundle\DoctrineExtensionsBundle\CMSDoctrineExtensionsBundle(),
+            new CMS\Bundle\MainBundle\CMSMainBundle(),
+            new CMS\Bundle\BlogBundle\CMSBlogBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

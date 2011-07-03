@@ -13,6 +13,13 @@ $loader->registerNamespaces(array(
     'Monolog'          => __DIR__.'/../vendor/monolog/src',
     'Assetic'          => __DIR__.'/../vendor/assetic/src',
     'Metadata'         => __DIR__.'/../vendor/metadata/src',
+    'Gedmo'            => __DIR__.'/../vendor/gedmo-doctrine-extensions/lib',
+    'FOS'              => __DIR__.'/../vendor/bundles',
+    'Imagine'          => __DIR__.'/../vendor/imagine/lib',
+    'Avalanche'        => __DIR__.'/../src',
+    'CMS'              => __DIR__.'/../src',
+    'CMSDoctrineExt'   => __DIR__.'/../src/CMS/System/Bundle/DoctrineExtensionsBundle',
+    
 ));
 $loader->registerPrefixes(array(
     'Twig_Extensions_' => __DIR__.'/../vendor/twig-extensions/lib',
