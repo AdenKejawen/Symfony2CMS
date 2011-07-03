@@ -14,9 +14,9 @@ $loader->registerNamespaces(array(
     'Assetic'          => __DIR__.'/../vendor/assetic/src',
     'Metadata'         => __DIR__.'/../vendor/metadata/src',
     'Gedmo'            => __DIR__.'/../vendor/gedmo-doctrine-extensions/lib',
-    'FOS'              => __DIR__.'/../vendor/bundles',
+    //'FOS'              => __DIR__.'/../vendor/bundles',
     'Imagine'          => __DIR__.'/../vendor/imagine/lib',
-    'Avalanche'        => __DIR__.'/../src',
+    'Avalanche'        => __DIR__.'/../vendor/bundles',
     'CMS'              => __DIR__.'/../src',
     'CMSDoctrineExt'   => __DIR__.'/../src/CMS/System/Bundle/DoctrineExtensionsBundle',
     

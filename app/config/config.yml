@@ -43,6 +43,8 @@ doctrine:
     orm:
         auto_generate_proxy_classes: %kernel.debug%
         auto_mapping: true
+        mappings:
+            CMSDoctrineExtensionsBundle: false
 
 # Swiftmailer Configuration
 swiftmailer:
@@ -54,3 +56,8 @@ swiftmailer:
 jms_security_extra:
     secure_controllers:  true
     secure_all_services: false
+        
+cms_doctrine_extensions:
+    orm:
+        default: ~
+
