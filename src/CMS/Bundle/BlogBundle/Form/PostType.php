@@ -15,6 +15,7 @@ class PostType extends AbstractType
             //->add('updated')
             ->add('body')
             ->add('image')
+            ->add('slug')
             //->add('category')
         ;
     }

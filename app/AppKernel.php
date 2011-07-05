@@ -24,6 +24,7 @@ class AppKernel extends Kernel
             new CMS\System\Bundle\DoctrineExtensionsBundle\CMSDoctrineExtensionsBundle(),
             new CMS\Bundle\MainBundle\CMSMainBundle(),
             new CMS\Bundle\BlogBundle\CMSBlogBundle(),
+            new CMS\System\Bundle\ImageBundle\CMSImageBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

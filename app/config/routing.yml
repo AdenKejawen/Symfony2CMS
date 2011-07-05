@@ -9,6 +9,10 @@ post_edit:
 post_create:
    pattern:  /post/create
    defaults: { _controller: CMSBlogBundle:Post:createPost }
+   
+_imagine:
+    resource: .
+    type:     imagine
 
 homepage:
    pattern:  /

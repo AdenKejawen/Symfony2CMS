@@ -8,7 +8,11 @@
     
         {{ form_row(form.title) }}
         {{ form_row(form.body) }}
-        <div class="file">{{ item.image }}</div>
+        <div class="file">
+            <a href="{{asset('/uploads/files/%s'|format(item.image))}}" target="_blank">
+                <img src="{{ '/uploads/files/%s'|format(item.image) | cms_image_cache('thumb') }}" />
+            </a>
+        </div>
         {{ form_row(form.image) }}
         
         {{ form_rest(form) }}

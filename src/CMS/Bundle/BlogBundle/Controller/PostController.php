@@ -40,6 +40,10 @@ class PostController extends Controller {
 
         return new Response('Created post id: ' . $post->getId() . ' and category id: ' . $category->getId());
     }
+    
+    public function listAction(){
+        
+    }
 
     public function newAction() {
         

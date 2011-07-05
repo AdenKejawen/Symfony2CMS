@@ -67,3 +67,11 @@ cms_doctrine_extensions:
     orm:
         default: ~
 
+avalanche_imagine:
+    web_root:     %kernel.root_dir%/../web
+    cache_prefix: cache
+    driver:       gd
+    filters:
+        thumb:
+            type:    thumbnail
+            options: { size: [120, 90], mode: outbound }

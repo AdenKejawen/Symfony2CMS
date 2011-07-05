@@ -26,6 +26,8 @@ class Post {
      * @var string $title
      *
      * @ORM\Column(name="title", type="string", length=255)
+     * 
+     * @Gedmo\Sluggable
      */
     private $title;
 
@@ -69,6 +71,15 @@ class Post {
      * @Assert\File(maxSize="10M")
      */
     protected $image;
+    
+    /**
+     * @var string $slug
+     *
+     * @ORM\Column(name="slug", type="string", length=255, nullable=true)
+     * 
+     * @Gedmo\Slug
+     */
+    private $slug;
     
 
     /**
@@ -188,4 +199,24 @@ class Post {
         return $this->image;
     }
 
+
+    /**
+     * Set slug
+     *
+     * @param string $slug
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+    }
+
+    /**
+     * Get slug
+     *
+     * @return string $slug
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
 }
