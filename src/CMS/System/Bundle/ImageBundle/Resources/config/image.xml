@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+
+        <!-- Templating classes -->
+        
+        <parameter key="cms_image.twig.extension.class">CMS\System\Bundle\ImageBundle\Twig\Extension\ImageExtension</parameter>
+
+        <!-- ImagineInterface implementations -->
+
+    </parameters>
+
+    <services>
+        
+        <!--  Templating helpers and extensions -->
+
+        <service id="cms_image.twig.extension" class="%cms_image.twig.extension.class%" public="false">
+            <tag name="twig.extension" />
+            <argument type="service" id="imagine.cache.path.resolver" />
+        </service>
+
+
+    </services>
+</container>
