@@ -1,7 +1,8 @@
 app/bootstrap*
 app/cache/*
 app/logs/*
-web/bundles/
-web/uploads/
+web/bundles/*
+web/uploads/*
+web/cache/*
 .settings
 .project
