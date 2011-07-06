@@ -113,7 +113,7 @@ class FileListener extends MappedEventSubscriber
         
         if ($config = $this->getConfiguration($om, $meta->name)) {
             
-            $this->_files[$config['field']] = $args->getNewValue($config['field']);
+            $this->_files[$config['field']] = $meta->getReflectionProperty($config['field'])->getValue($object);
             
             if(isset($this->_files[$config['field']]) and $this->_files[$config['field']] instanceof UploadedFile) {
                 

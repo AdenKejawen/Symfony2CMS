@@ -11,7 +11,9 @@ use Doctrine\Common\Annotations\Annotation;
  * @package CMSDoctrineExt.Mapping.Annotation
  * @subpackage File
  * @license MIT License (http://www.opensource.org/licenses/mit-license.php)
+ * @Annotation
  */
+
 final class File extends Annotation
 {
     public $dir = 'files';

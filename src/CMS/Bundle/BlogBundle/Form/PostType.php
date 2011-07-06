@@ -19,4 +19,10 @@ class PostType extends AbstractType
             //->add('category')
         ;
     }
+    
+    public function getName(){
+        
+        return 'PostType';
+        
+    }
 }
