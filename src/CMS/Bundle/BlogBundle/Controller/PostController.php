@@ -92,6 +92,7 @@ class PostController extends Controller {
                 
                 $em->flush();
                 
+                return $this->redirect($this->generateUrl('post_edit', array('id' => $post->getId())));
             }
         }
 

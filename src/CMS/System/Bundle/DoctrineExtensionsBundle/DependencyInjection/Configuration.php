@@ -39,6 +39,7 @@ class Configuration implements ConfigurationInterface
                 ->children()
                     ->scalarNode('demo')->defaultTrue()->end()
                     ->scalarNode('file')->defaultTrue()->end()
+                    ->scalarNode('sluggable')->defaultTrue()->end()
                 ->end()
             ->end()
         ;
@@ -61,6 +62,10 @@ class Configuration implements ConfigurationInterface
                 ->scalarNode('file')
                     ->cannotBeEmpty()
                     ->defaultValue('CMSDoctrineExt\\File\\FileListener')
+                ->end()
+                ->scalarNode('sluggable')
+                    ->cannotBeEmpty()
+                    ->defaultValue('CMSDoctrineExt\\Sluggable\\SluggableListener')
                 ->end()
             ->end()
         ;

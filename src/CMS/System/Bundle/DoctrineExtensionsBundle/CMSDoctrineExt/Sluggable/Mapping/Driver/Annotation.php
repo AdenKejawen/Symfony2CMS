@@ -12,9 +12,20 @@ use Gedmo\Exception\InvalidMappingException;
 class Annotation implements AnnotationDriverInterface
 {
 
-    const Sluggable = 'CMSDoctrineExt\\Mapping\\Annotation\\Sluggable';
+    const SLUGGABLE = 'CMSDoctrineExt\\Mapping\\Annotation\\Sluggable';
 
-    const Slug = 'CMSDoctrineExt\\Mapping\\Annotation\\Slug';
+    const SLUG = 'CMSDoctrineExt\\Mapping\\Annotation\\Slug';
+    
+    /**
+     * List of types which are valid for slug and sluggable fields
+     *
+     * @var array
+     */
+    private $validTypes = array(
+        'string',
+        'text',
+        'integer'
+    );
     
     /**
      * Annotation reader instance
@@ -39,7 +50,12 @@ class Annotation implements AnnotationDriverInterface
     /**
      * {@inheritDoc}
      */
-    public function validateFullMetadata(ClassMetadata $meta, array $config) {}
+    public function validateFullMetadata(ClassMetadata $meta, array $config)
+    {
+        if ($config && !isset($config['fields'])) {
+            throw new InvalidMappingException("Unable to find any sluggable fields specified for Sluggable entity - {$meta->name}");
+        }
+    }
 
     /**
      * {@inheritDoc}
@@ -54,18 +70,51 @@ class Annotation implements AnnotationDriverInterface
             ) {
                 continue;
             }
-            if ($demo = $this->reader->getPropertyAnnotation($property, self::DEMO)) {
-
+            
+            // sluggable property
+            if ($sluggable = $this->reader->getPropertyAnnotation($property, self::SLUGGABLE)) {
                 $field = $property->getName();
-                $value = $demo->text;
-                        
                 if (!$meta->hasField($field)) {
-                    throw new InvalidMappingException("Unable to find timestampable [{$field}] as mapped property in entity - {$meta->name}");
+                    throw new InvalidMappingException("Unable to find sluggable [{$field}] as mapped property in entity - {$meta->name}");
+                }
+                if (!$this->isValidField($meta, $field)) {
+                    throw new InvalidMappingException("Cannot slug field - [{$field}] type is not valid and must be 'string' in class - {$meta->name}");
+                }
+                $config['fields'][] = array('field' => $field, 'position' => $sluggable->position);
+            }
+            
+            // slug property
+            if ($slug = $this->reader->getPropertyAnnotation($property, self::SLUG)) {
+                $field = $property->getName();
+                if (!$meta->hasField($field)) {
+                    throw new InvalidMappingException("Unable to find slug [{$field}] as mapped property in entity - {$meta->name}");
+                }
+                if (!$this->isValidField($meta, $field)) {
+                    throw new InvalidMappingException("Cannot use field - [{$field}] for slug storage, type is not valid and must be 'string' in class - {$meta->name}");
+                }
+                if (isset($config['slug'])) {
+                    throw new InvalidMappingException("There cannot be two slug fields: [{$slugField}] and [{$config['slug']}], in class - {$meta->name}.");
                 }
 
-                $config['text'][] = array('field' => $field, 'value' => $value);
+                $config['slug'] = $field;
+                $config['updatable'] = $slug->updatable;
+                $config['unique'] = $slug->unique;
+                $config['separator'] = $slug->separator;
             }
         }
+    }
+
+    /**
+     * Checks if $field type is valid as Sluggable field
+     *
+     * @param ClassMetadata $meta
+     * @param string $field
+     * @return boolean
+     */
+    protected function isValidField(ClassMetadata $meta, $field)
+    {
+        $mapping = $meta->getFieldMapping($field);
+        return $mapping && in_array($mapping['type'], $this->validTypes);
     }
 
     /**

@@ -19,6 +19,7 @@ class Post {
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+     * 
      */
     private $id;
 
@@ -27,7 +28,7 @@ class Post {
      *
      * @ORM\Column(name="title", type="string", length=255)
      * 
-     * @Gedmo\Sluggable
+     * @CMSDoctrineExt\Sluggable
      */
     private $title;
 
@@ -77,9 +78,9 @@ class Post {
      *
      * @ORM\Column(name="slug", type="string", length=255, nullable=true)
      * 
-     * @Gedmo\Slug
+     * @CMSDoctrineExt\Slug(updatable=true)
      */
-    private $slug;
+    protected $slug;
     
 
     /**

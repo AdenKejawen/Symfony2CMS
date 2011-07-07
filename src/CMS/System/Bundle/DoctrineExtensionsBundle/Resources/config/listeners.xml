@@ -15,5 +15,10 @@
                 <argument type="service" id="annotation_reader" />
             </call>
         </service>
+        <service id="cms_doctrine_extensions.listener.sluggable" class="%cms_doctrine_extensions.listener.sluggable.class%" public="false">
+            <call method="setAnnotationReader">
+                <argument type="service" id="annotation_reader" />
+            </call>
+        </service>
     </services>
 </container>
