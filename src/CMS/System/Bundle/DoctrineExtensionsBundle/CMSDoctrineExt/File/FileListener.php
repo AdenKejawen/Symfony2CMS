@@ -58,6 +58,7 @@ class FileListener extends MappedEventSubscriber
         $object = $ea->getObject();
         
         $meta = $om->getClassMetadata(get_class($object));
+        
     }
 
     /*
@@ -126,9 +127,13 @@ class FileListener extends MappedEventSubscriber
                 
             } else {
                 
-                $args->setNewValue($config['field'], $args->getOldValue($config['field']));
                 
-                $meta->getReflectionProperty($config['field'])->setValue($object, $args->getOldValue($config['field']));
+                if ($args->hasChangedField($config['field'])) {
+                    
+                   $args->setNewValue($config['field'], $args->getOldValue($config['field']));
+                
+                   $meta->getReflectionProperty($config['field'])->setValue($object, $args->getOldValue($config['field']));
+                }
                 
             }
         }

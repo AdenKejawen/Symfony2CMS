@@ -38,7 +38,7 @@ class Post {
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(type="datetime")
      */
-    private $created;
+    protected $created;
 
     /**
      * @var datetime $updated
@@ -60,7 +60,7 @@ class Post {
      * @ORM\ManyToOne(targetEntity="PostCategory", inversedBy="posts")
      * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
      */
-    protected $category;
+    private $category;
 
     /**
      * @var string $image
@@ -71,16 +71,16 @@ class Post {
      * 
      * @Assert\File(maxSize="10M")
      */
-    protected $image;
+    private $image;
     
     /**
      * @var string $slug
      *
      * @ORM\Column(name="slug", type="string", length=255, nullable=true)
      * 
-     * @CMSDoctrineExt\Slug(updatable=true)
+     * @CMSDoctrineExt\Slug()
      */
-    protected $slug;
+    private $slug;
     
 
     /**

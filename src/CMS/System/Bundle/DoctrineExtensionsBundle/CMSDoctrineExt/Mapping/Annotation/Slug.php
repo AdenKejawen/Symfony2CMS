@@ -13,7 +13,7 @@ use Doctrine\Common\Annotations\Annotation;
  */
 final class Slug extends Annotation
 {
-    public $updatable = true;
+    public $updatable = false;
     public $unique = true;
     public $separator = '-';
 }

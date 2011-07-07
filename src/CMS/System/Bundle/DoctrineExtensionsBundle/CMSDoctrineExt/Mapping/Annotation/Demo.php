@@ -6,6 +6,8 @@ use Doctrine\Common\Annotations\Annotation;
 
 /**
  * Demo annotation for Demo behavioral extension
+ * 
+ * @Annotation
  *
  * @author Gediminas Morkevicius <gediminas.morkevicius@gmail.com>
  * @package Gedmo.Mapping.Annotation
