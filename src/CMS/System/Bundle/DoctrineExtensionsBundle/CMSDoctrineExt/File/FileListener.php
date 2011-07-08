@@ -76,10 +76,20 @@ class FileListener extends MappedEventSubscriber
         
         if ($config = $this->getConfiguration($om, $meta->name)) {
             
-            $this->_files[$config['field']] = $meta->getReflectionProperty($config['field'])->getValue($object);
+            if(isset($config['fields'])){
+                
+                foreach($config['fields'] as $field){
+                    
+                    $field_name = $field['name'];
+                    
+                    $this->_files[$field_name] = $meta->getReflectionProperty($field_name)->getValue($object);
             
-            if(isset($this->_files[$config['field']]) and $this->_files[$config['field']] instanceof UploadedFile)
-                $meta->getReflectionProperty($config['field'])->setValue($object, strtotime('now') . '.' . $this->_files[$config['field']]->guessExtension());
+                    if(isset($this->_files[$field_name]) and $this->_files[$field_name] instanceof UploadedFile)
+                    $meta->getReflectionProperty($field_name)->setValue($object, strtotime('now') . '.' . $this->_files[$field_name]->guessExtension());
+                    
+                }
+                
+            }
         }
     }
     
@@ -93,13 +103,23 @@ class FileListener extends MappedEventSubscriber
         
         if ($config = $this->getConfiguration($om, $meta->name)) {
             
-            if(isset($this->_files[$config['field']]) and$this->_files[$config['field']] instanceof UploadedFile) {
-    
-                $file_name = $meta->getReflectionProperty($config['field'])->getValue($object);
+            if(isset($config['fields'])){
                 
-                $this->_files[$config['field']]->move($config['dir'], $file_name);
+                foreach($config['fields'] as $field){
+                    
+                    $field_name = $field['name'];
+                    
+                    if(isset($this->_files[$field_name]) and $this->_files[$field_name] instanceof UploadedFile) {
     
-                unset($this->_files[$config['field']]);
+                        $file_name = $meta->getReflectionProperty($field_name)->getValue($object);
+                
+                        $this->_files[$field_name]->move($field['dir'], $file_name);
+    
+                        unset($this->_files[$field_name]);
+                    }
+                    
+                }
+                
             }
         }
     }
@@ -114,25 +134,54 @@ class FileListener extends MappedEventSubscriber
         
         if ($config = $this->getConfiguration($om, $meta->name)) {
             
-            $this->_files[$config['field']] = $meta->getReflectionProperty($config['field'])->getValue($object);
-            
-            if(isset($this->_files[$config['field']]) and $this->_files[$config['field']] instanceof UploadedFile) {
-                
-                $args->setNewValue($config['field'], strtotime('now') . '.' . $this->_files[$config['field']]->guessExtension());
-                
-                $meta->getReflectionProperty($config['field'])->setValue($object, $args->getNewValue($config['field']));
-                
-                if($args->getOldValue($config['field']))
-                    $this->removeUploadedFile($config['dir'].'/'.$args->getOldValue($config['field']));
-                
-            } else {
-                
-                
-                if ($args->hasChangedField($config['field'])) {
+            if(isset($config['fields'])){
+                $test = array();
+                $i = 0;
+                foreach($config['fields'] as $field){
                     
-                   $args->setNewValue($config['field'], $args->getOldValue($config['field']));
-                
-                   $meta->getReflectionProperty($config['field'])->setValue($object, $args->getOldValue($config['field']));
+                    $field_name = $field['name'];
+            
+                    $this->_files[$field_name] = $meta->getReflectionProperty($field_name)->getValue($object);
+                    
+                    if(isset($this->_files[$field_name]) and $this->_files[$field_name] instanceof UploadedFile) {
+                        
+                        $file_name = $ea->generateFileName($meta, $this->_files[$field_name], $i++);
+                        
+                        $args->setNewValue($field_name, $file_name);
+                        
+                        $meta->getReflectionProperty($field_name)->setValue($object, $file_name);
+                        
+                        if($args->getOldValue($field_name))
+                            
+                            $this->removeUploadedFile($field['dir'].'/'.$args->getOldValue($field_name));
+                        
+                    } else {
+                        
+                        
+                        if ($args->hasChangedField($field_name)) {
+                            
+                           $args->setNewValue($field_name, $args->getOldValue($field_name));
+                        
+                           $meta->getReflectionProperty($field_name)->setValue($object, $args->getOldValue($field_name));
+                           
+                        } 
+                            
+                        $file_delete = $field['name'].'_delete';
+                        
+                        $old_value = $meta->getReflectionProperty($field_name)->getValue($object);
+                    
+                        if(isset($object->$file_delete) and ($object->$file_delete == true) and ($old_value != '' or $old_value != null)){
+                            
+                           $this->removeUploadedFile($field['dir'].'/'.$old_value);
+                            
+                           $args->setNewValue($field_name, null);
+                           
+                           $object->$file_delete = false;
+                            
+                        }
+                       
+                    }
+                    
                 }
                 
             }
@@ -150,13 +199,26 @@ class FileListener extends MappedEventSubscriber
         
         if ($config = $this->getConfiguration($om, $meta->name)) {
             
-            if(isset($this->_files[$config['field']]) and $this->_files[$config['field']] instanceof UploadedFile) {
-    
-                $file_name = $meta->getReflectionProperty($config['field'])->getValue($object);
+            if(isset($config['fields'])){
                 
-                $this->_files[$config['field']]->move($config['dir'], $file_name);
-    
-                unset($this->_files[$config['field']]);
+                foreach($config['fields'] as $field){
+                    
+                    $field_name = $field['name'];
+            
+                    if(isset($this->_files[$field_name]) and $this->_files[$field_name] instanceof UploadedFile) {
+            
+                        $file_name = $meta->getReflectionProperty($field_name)->getValue($object);
+                        
+                        $test[] = $file_name;
+                        
+                        $this->_files[$field_name]->move($field['dir'], $file_name);
+            
+                        unset($this->_files[$field_name]);
+                        
+                    }
+                    
+                }
+                
             }
         }
     }

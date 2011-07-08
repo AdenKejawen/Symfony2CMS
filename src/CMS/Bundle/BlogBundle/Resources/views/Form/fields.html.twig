@@ -7,3 +7,44 @@
     </div>
 {% endspaceless %}
 {% endblock field_row %}
+
+{% block file_widget %}
+{% spaceless %}
+    {% set type = type|default('file') %}
+    {% if(value) %}
+    <div class="file">
+        <a href="{{asset('/uploads/files/%s'|format(value))}}" target="_blank">
+            {{ value }}
+        </a>
+    </div>
+    {% endif %}
+    {{ block('field_widget') }}
+    {{ block('file_delete') }}
+{% endspaceless %}
+{% endblock file_widget %}
+
+{% block image_widget %}
+{% spaceless %}
+    {% set type = type|default('image') %}
+    {% if(value) %}
+    <div class="image">
+        <a href="{{asset('/uploads/files/%s'|format(value))}}" target="_blank">
+            <img src="{{ '/uploads/files/%s'|format(value) | cms_image_cache('thumb') }}" />
+        </a>
+    </div>
+    {% endif %}
+    {{ block('field_widget') }}
+    {{ block('file_delete') }}
+{% endspaceless %}
+{% endblock image_widget %}
+
+{% block file_delete %}
+{% spaceless %}
+    {{ value }}
+    {% if(value and form.parent.has('%s'|format(delete_name))) %}
+    <br />
+    {{ form_label(form.parent['%s'|format(delete_name)]) }}
+    {{ form_widget(form.parent['%s'|format(delete_name)]) }}
+    {% endif %}
+{% endspaceless %}
+{% endblock file_delete %}

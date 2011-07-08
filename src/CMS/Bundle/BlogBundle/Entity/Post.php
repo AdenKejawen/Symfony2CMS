@@ -69,9 +69,33 @@ class Post {
      * 
      * @CMSDoctrineExt\File(dir="files")
      * 
-     * @Assert\File(maxSize="10M")
+     * @Assert\Image(maxSize="10M")
      */
     private $image;
+    
+    /**
+     * @var boolean $image_delete
+     * 
+     */
+    public $image_delete = false;
+    
+    /**
+     * @var string $file
+     * 
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * 
+     * @CMSDoctrineExt\File(dir="files")
+     * 
+     * @Assert\Image(maxSize="10M")
+     */
+    private $file;
+    
+    /**
+     * @var boolean $file_delete
+     * 
+     */
+    public $file_delete = false;
+    
     
     /**
      * @var string $slug
@@ -219,5 +243,25 @@ class Post {
     public function getSlug()
     {
         return $this->slug;
+    }
+
+    /**
+     * Set file
+     *
+     * @param string $file
+     */
+    public function setFile($file)
+    {
+        $this->file = $file;
+    }
+
+    /**
+     * Get file
+     *
+     * @return string 
+     */
+    public function getFile()
+    {
+        return $this->file;
     }
 }

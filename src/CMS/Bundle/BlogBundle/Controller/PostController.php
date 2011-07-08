@@ -81,6 +81,8 @@ class PostController extends Controller {
         }
 
         $form = $this->createForm(new PostType(), $post);
+        
+        if(!$post->getImage()) $form->remove('image_delete');
 
         $request = $this->get('request');
 

@@ -5,15 +5,6 @@
 
     <form action="{{ path('post_edit', { 'id': item.id }) }}" method="post" {{ form_enctype(form) }}>
         {{ form_errors(form) }}
-    
-        {{ form_row(form.title) }}
-        {{ form_row(form.body) }}
-        <div class="file">
-            <a href="{{asset('/uploads/files/%s'|format(item.image))}}" target="_blank">
-                <img src="{{ '/uploads/files/%s'|format(item.image) | cms_image_cache('thumb') }}" />
-            </a>
-        </div>
-        {{ form_row(form.image) }}
         
         {{ form_rest(form) }}
     

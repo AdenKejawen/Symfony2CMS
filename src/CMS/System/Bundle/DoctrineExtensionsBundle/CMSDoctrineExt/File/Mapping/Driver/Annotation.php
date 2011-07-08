@@ -9,10 +9,10 @@ use CMS\System\Bundle\CoreBundle\Services\Core as CMSCore;
 
 class Annotation implements AnnotationDriverInterface
 {
-    /**
-     * Annotation field is File
-     */
-    const FileAnnotation = 'CMSDoctrineExt\\Mapping\\Annotation\\File';
+
+    const FILE = 'CMSDoctrineExt\\Mapping\\Annotation\\File';
+    
+    const FILE_DELETE = 'CMSDoctrineExt\\Mapping\\Annotation\\FileDelete';
 
 
     /**
@@ -46,6 +46,11 @@ class Annotation implements AnnotationDriverInterface
     public function readExtendedMetadata(ClassMetadata $meta, array &$config) {
         $class = $meta->getReflectionClass();
         // property annotations
+        
+        $config['fields'] = array();
+        
+        $config['fields_delete'] = array();
+        
         foreach ($class->getProperties() as $property) {
             if ($meta->isMappedSuperclass && !$property->isPrivate() ||
                 $meta->isInheritedField($property->name) ||
@@ -53,19 +58,35 @@ class Annotation implements AnnotationDriverInterface
             ) {
                 continue;
             }
-            if ($file = $this->reader->getPropertyAnnotation($property, self::FileAnnotation)) {
+            
+            $field = null;
+            
+            if ($file = $this->reader->getPropertyAnnotation($property, self::FILE)) {
 
-                $field = $property->getName();
-                $value = $file->dir;
+                $field['name'] = $property->getName();
+                $field['dir'] = CMSCore::init()->getUploadsDir().'/'.$file->dir;
                         
-                if (!$meta->hasField($field)) {
+                if (!$meta->hasField($field['name'])) {
                     throw new InvalidMappingException("Unable to find timestampable [{$field}] as mapped property in entity - {$meta->name}");
                 }
                 
-                $config['field'] = $field;
-                $config['dir'] = CMSCore::init()->getUploadsDir().'/'.$value;
+
             }
+            
+            // if ($fileDelete = $this->reader->getPropertyAnnotation($property, self::FILE_DELETE)) {
+//                 
+                // $config['fields_delete'][] = $property->getName();
+//                 
+            // }
+            
+            if($field){
+                
+               $config['fields'][] = $field; 
+                
+            }
+            
         }
+        
     }
 
     /**
