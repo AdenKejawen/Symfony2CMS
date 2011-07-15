@@ -5,6 +5,7 @@ imports:
 framework:
     secret:          %secret%
     charset:         UTF-8
+    translator:      { fallback: ru }
     router:          { resource: "%kernel.root_dir%/config/routing.yml" }
     form:            true
     csrf_protection: true
@@ -44,7 +45,6 @@ doctrine:
         auto_generate_proxy_classes: %kernel.debug%
         auto_mapping: true
         mappings:
-            StofDoctrineExtensionsBundle: false
             CMSDoctrineExtensionsBundle: false
 
 # Swiftmailer Configuration
@@ -57,10 +57,37 @@ swiftmailer:
 jms_security_extra:
     secure_controllers:  true
     secure_all_services: false
+    
+fos_user:
+    db_driver: orm
+    firewall_name: main
+    user_class: CMS\System\Bundle\UserBundle\Entity\User
+    group:
+        group_class: CMS\System\Bundle\UserBundle\Entity\Group
+    
+knp_paginator:
+    templating: ~
         
 cms_doctrine_extensions:
     orm:
         default: ~
+        
+# cms_admin:
+    # admins:
+        # cms_blog_bundle_post:
+            # class: CMS\Bundle\BlogBundle\CMSAdmin\Post
+
+services:
+   sonata.blog.admin.post:
+      class: CMS\Bundle\BlogBundle\Admin\PostAdmin
+      tags:
+        - { name: sonata.admin, manager_type: orm, group: blog, label: post }
+      arguments: [null, CMS\Bundle\BlogBundle\Entity\Post, CMSBlogBundle:PostAdmin]
+   sonata.blog.admin.post_category:
+      class: CMS\Bundle\BlogBundle\Admin\PostCategoryAdmin
+      tags:
+        - { name: sonata.admin, manager_type: orm, group: blog, label: post category }
+      arguments: [null, CMS\Bundle\BlogBundle\Entity\PostCategory, CMSBlogBundle:PostCategoryAdmin]
 
 avalanche_imagine:
     web_root:     %kernel.root_dir%/../web

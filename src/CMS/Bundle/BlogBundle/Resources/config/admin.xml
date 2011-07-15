@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        
+        <!-- Post Admin Class -->
+        <parameter key="cms_admin.post_admin.class">CMS\Bundle\BlogBundle\CMSAdmin\Post</parameter>
+        
+        <!-- PostCategory Admin Class -->
+        <parameter key="cms_admin.post_category_admin.class">CMS\Bundle\BlogBundle\CMSAdmin\PostCategory</parameter>
+        
+    </parameters>
+
+    <services>
+        
+        <!-- Post Admin Service -->
+        <service id="cms_admin.cms_blog_bundle_post" class="%cms_admin.post_admin.class%">
+            <tag name="cms_admin.admin" />
+        </service>
+        
+        <!-- PostCategory Admin Service -->
+        <service id="cms_admin.cms_blog_bundle_post_category" class="%cms_admin.post_category_admin.class%">
+            <tag name="cms_admin.admin" />
+        </service>
+
+    </services>
+
+</container>

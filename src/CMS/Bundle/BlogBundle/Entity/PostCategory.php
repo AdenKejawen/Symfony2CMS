@@ -4,6 +4,7 @@ namespace CMS\Bundle\BlogBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * CMS\Bundle\BlogBundle\Entity\PostCategory
@@ -26,8 +27,10 @@ class PostCategory
      * @var string $title
      *
      * @ORM\Column(name="title", type="string", length=255)
+     * 
+     * @Assert\NotBlank()
      */
-    private $title;
+    public $title;
     
     /**
      * @ORM\OneToMany(targetEntity="Post", mappedBy="category")
@@ -37,6 +40,11 @@ class PostCategory
     public function __construct()
     {
         $this->posts = new ArrayCollection();
+    }
+    
+    public function __toString(){
+        
+        return $this->title;
     }
 
 
@@ -75,7 +83,7 @@ class PostCategory
      *
      * @param CMS\BlogBundle\Entity\Post $posts
      */
-    public function addPosts(\CMS\BlogBundle\Entity\Post $posts)
+    public function addPosts(Post $posts)
     {
         $this->posts[] = $posts;
     }

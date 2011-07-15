@@ -40,11 +40,14 @@
 
 {% block file_delete %}
 {% spaceless %}
-    {{ value }}
-    {% if(value and form.parent.has('%s'|format(delete_name))) %}
-    <br />
-    {{ form_label(form.parent['%s'|format(delete_name)]) }}
-    {{ form_widget(form.parent['%s'|format(delete_name)]) }}
+    {% if form.parent['%s'|format(delete_name)] is defined %}
+        {% if value %}
+            <br />
+            {{ form_label(form.parent['%s'|format(delete_name)]) }}
+            {{ form_widget(form.parent['%s'|format(delete_name)]) }}
+        {% else %}
+            {% set rendered = form.parent['%s'|format(delete_name)].setRendered %}
+        {% endif %}
     {% endif %}
 {% endspaceless %}
 {% endblock file_delete %}

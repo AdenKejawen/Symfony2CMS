@@ -1,3 +1,15 @@
-#homepage:
-#    pattern:  /
-#    defaults: { _controller: BlogBundle:Default:index }
+blog:
+   pattern:  /blog
+   defaults: { _controller: CMSBlogBundle:Post:list }
+
+post_new:
+   pattern:  /post/new
+   defaults: { _controller: CMSBlogBundle:Post:new }
+
+post_edit:
+   pattern:  /post/edit/{id}
+   defaults: { _controller: CMSBlogBundle:Post:edit }
+   
+post_create:
+   pattern:  /post/create
+   defaults: { _controller: CMSBlogBundle:Post:createPost }

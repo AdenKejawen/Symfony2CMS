@@ -1,0 +1,15 @@
+{% extends "::layout.html.twig" %}
+
+{% block content %}
+    <h1>Blog</h1>
+    {% for post in paginator %}
+        <div class="item">
+            <div class="title"><a href="{{ path('post_edit', {'id': post.id}) }}">{{ post.title }}</a>{% if post.category is not empty %}({{ post.category.title }}){% endif %}</div>
+        </div>
+    {% else %}
+        No blog found 
+    {% endfor %}
+    <div id="navigation">
+    {{ paginator|paginate }}
+    </div>
+{% endblock %}

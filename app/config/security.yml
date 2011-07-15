@@ -11,6 +11,8 @@ security:
             users:
                 user:  { password: userpass, roles: [ 'ROLE_USER' ] }
                 admin: { password: adminpass, roles: [ 'ROLE_ADMIN' ] }
+        fos_userbundle:
+            id: fos_user.user_manager
 
     firewalls:
         dev:
@@ -32,6 +34,18 @@ security:
             #anonymous: ~
             #http_basic:
             #    realm: "Secured Demo Area"
+        main:
+            pattern:  .*
+            form_login:
+                provider:  fos_userbundle
+                login_path:     /login
+                use_forward:    false
+                check_path:     /login_check
+                failure_path:   null
+            logout:
+                path:   /logout
+            anonymous:  true
 
     access_control:
-        #- { path: /login, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
+        - { path: /login, roles: IS_AUTHENTICATED_ANONYMOUSLY}
+        - { path: ^/.*, roles: [IS_AUTHENTICATED_ANONYMOUSLY, ROLE_USER] }

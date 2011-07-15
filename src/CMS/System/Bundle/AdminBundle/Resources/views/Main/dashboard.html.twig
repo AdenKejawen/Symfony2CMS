@@ -1,0 +1,13 @@
+Adminka -> Dashboard
+<br />
+Modules:
+<ul>
+{% for group, admins in groups_admins %}
+    <li>{{ group }}</li>
+    <ul>
+        {% for admin in admins %}
+            <li>{{ admin.getName }} ({{ admin.getUniqueName }})</li>
+        {% endfor %}
+    </ul>
+{% endfor %}
+</ul>

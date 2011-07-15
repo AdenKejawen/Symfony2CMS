@@ -222,6 +222,32 @@ class FileListener extends MappedEventSubscriber
             }
         }
     }
+
+    public function postRemove(EventArgs $args)
+    {
+        $ea = $this->getEventAdapter($args);
+        $om = $ea->getObjectManager();
+        $object = $ea->getObject();
+        
+        $meta = $om->getClassMetadata(get_class($object));
+        
+        if ($config = $this->getConfiguration($om, $meta->name)) {
+            
+            if(isset($config['fields'])){
+                
+                foreach($config['fields'] as $field){
+                    
+                    $field_name = $field['name'];
+                    
+                    $file_name = $meta->getReflectionProperty($field_name)->getValue($object);
+                    
+                    if($file_name != null)
+                        $this->removeUploadedFile($field['dir'].'/'.$file_name);
+                }
+                
+            }
+        }
+    }
     
     public function removeUploadedFile($file) {
         if(file_exists($file)) {

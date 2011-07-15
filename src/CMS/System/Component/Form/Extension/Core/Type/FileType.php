@@ -26,22 +26,10 @@ class FileType extends AbstractType
     {
         $name = $form->getName();
         
-        if ($view->hasParent()) {
-            $parentId = $view->getParent()->get('id');
-            $parentFullName = $view->getParent()->get('full_name');
-            $deleteId = sprintf('%s_%s', $parentId, $name.'_delete');
-            $deleteFullName = sprintf('%s[%s]', $parentFullName, $name.'_delete');
-        } else {
-            $deleteId = $name.'_delete';
-            $deleteFullName = $name.'_delete';
-        }
-        
         $view
             ->set('multipart', true)
             ->set('type', 'file')
             ->set('required', false)
-            ->set('delete_id', $deleteId)
-            ->set('delete_full_name', $deleteFullName)
             ->set('delete_name', $name.'_delete')
         ;
     }

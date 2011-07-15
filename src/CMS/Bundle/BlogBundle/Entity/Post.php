@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Gedmo\Mapping\Annotation as Gedmo;
 use CMSDoctrineExt\Mapping\Annotation as CMSDoctrineExt;
+use CMS\Bundle\BlogBundle\Entity\PostCategory;
 
 /**
  * CMS\Bundle\BlogBundle\Entity\Post
@@ -59,6 +60,7 @@ class Post {
     /**
      * @ORM\ManyToOne(targetEntity="PostCategory", inversedBy="posts")
      * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
+     * @Assert\Type(type="CMS\Bundle\BlogBundle\Entity\PostCategory")
      */
     private $category;
 
@@ -157,7 +159,7 @@ class Post {
      *
      * @param CMS\BlogBundle\Entity\PostCategory $category
      */
-    public function setCategory(\CMS\BlogBundle\Entity\PostCategory$category) {
+    public function setCategory(PostCategory $category) {
         $this->category = $category;
     }
 

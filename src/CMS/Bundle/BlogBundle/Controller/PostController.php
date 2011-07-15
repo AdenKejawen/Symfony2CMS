@@ -17,6 +17,7 @@ use CMS\Bundle\BlogBundle\Entity\PostCategory;
 use Symfony\Component\HttpFoundation\Response;
 use CMS\Bundle\BlogBundle\Form\PostType;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Zend\Paginator\Paginator;
 
 class PostController extends Controller {
     public function indexAction() {
@@ -42,6 +43,28 @@ class PostController extends Controller {
     }
     
     public function listAction(){
+        
+        $repository = $this->getDoctrine()
+                ->getRepository('CMSBlogBundle:Post');
+
+        $query = $repository->createQueryBuilder('p')
+                ->select(array('p', 'pc'))
+                ->leftJoin('p.category', 'pc')
+                ->orderBy('p.id', 'DESC')
+                ->getQuery();
+                
+        $adapter = $this->get('knp_paginator.adapter');
+        $adapter->setQuery($query);
+        $adapter->setDistinct(true);
+
+        $paginator = new Paginator($adapter);
+        $paginator->setCurrentPageNumber($this->get('request')->query->get('page', 1));
+        $paginator->setItemCountPerPage(15);
+        $paginator->setPageRange(5);
+
+        //$posts = $query->getResult();
+        
+        return $this->render('CMSBlogBundle:Post:list.html.twig', array('paginator' => $paginator));
         
     }
 
@@ -81,8 +104,6 @@ class PostController extends Controller {
         }
 
         $form = $this->createForm(new PostType(), $post);
-        
-        if(!$post->getImage()) $form->remove('image_delete');
 
         $request = $this->get('request');
 

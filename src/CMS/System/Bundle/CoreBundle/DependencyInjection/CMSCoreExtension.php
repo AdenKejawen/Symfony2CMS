@@ -18,6 +18,7 @@ class CMSCoreExtension extends Extension {
         
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('services.xml');
+        $loader->load('form.xml');
         
         $container->setParameter('cms_core.upload_dir', $config['upload_dir']);
 

@@ -1,0 +1,7 @@
+test:
+    pattern:  /test
+    defaults: { _controller: CMSAdminBundle:Main:test }
+
+main:
+    pattern:  /
+    defaults: { _controller: CMSAdminBundle:Main:dashboard }
