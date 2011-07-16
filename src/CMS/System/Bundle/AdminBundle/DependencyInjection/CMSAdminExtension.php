@@ -29,6 +29,10 @@ class CMSAdminExtension extends Extension
         
     }
     
+    public function getAlias() {
+        return 'cms_admin';
+    }
+    
     public function getXsdValidationBasePath()
     {
         return __DIR__.'/../Resources/config/';
@@ -36,6 +40,6 @@ class CMSAdminExtension extends Extension
 
     public function getNamespace()
     {
-        return 'http://www.example.com/symfony/schema/';
+        return 'http://symfony.com/schema/dic/cms_admin';
     }
 }

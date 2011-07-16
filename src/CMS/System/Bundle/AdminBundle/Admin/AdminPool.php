@@ -51,6 +51,17 @@ class AdminPool extends ContainerAware
 
     }
     
+    public function hasUniqueName($name){
+        
+        if(isset($this->adminIds[$name])){
+            
+            return true;
+        }
+        
+        return false;
+           
+    }
+    
     public function getGroupAdmins()
     {
         $admins = array();

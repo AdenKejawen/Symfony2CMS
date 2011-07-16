@@ -7,11 +7,24 @@
     <parameters>
         <!-- Admin Factory -->
         <parameter key="cms_admin.admin_pool.class">CMS\System\Bundle\AdminBundle\Admin\AdminPool</parameter>
+        
+        <!-- Admin Routing Class -->
+        <parameter key="cms_admin.routing.loader.class">CMS\System\Bundle\AdminBundle\Routing\AdminRouting</parameter>
+        
+        <!-- Admin Action List Class -->
+        <parameter key="cms_admin.action.list.class">CMS\System\Bundle\AdminBundle\Admin\Action\ListAction</parameter>
+        
+        <!-- Admin Action New Class -->
+        <parameter key="cms_admin.action.new.class">CMS\System\Bundle\AdminBundle\Admin\Action\NewAction</parameter>
+        
+        <!-- Admin Action Edit Class -->
+        <parameter key="cms_admin.action.edit.class">CMS\System\Bundle\AdminBundle\Admin\Action\EditAction</parameter>
 
     </parameters>
 
     <services>
-        <!-- Admin Factory -->
+        
+        <!-- Admin Pool -->
         <service id="cms_admin.admin_pool" class="%cms_admin.admin_pool.class%">
             <!-- adminIds -->
             <argument type="collection" />
@@ -20,6 +33,31 @@
             <call method="setContainer">
                 <argument type="service" id="service_container" />
             </call>
+        </service>
+        
+        <!-- Actions -->
+        <service id="cms_admin.action.list" class="%cms_admin.action.list.class%">
+            <tag name="cms_admin.action" />
+        </service>
+        
+        <service id="cms_admin.action.new" class="%cms_admin.action.new.class%">
+            <tag name="cms_admin.action" />
+            <call method="setPattern">
+                <argument>/new</argument>
+            </call>
+        </service>
+        
+        <service id="cms_admin.action.edit" class="%cms_admin.action.edit.class%">
+            <tag name="cms_admin.action" />
+            <call method="setPattern">
+                <argument>/{id}/edit</argument>
+            </call>
+        </service>
+        
+        <!-- Routing Loader -->
+        <service id="cms_admin.routing.loader" class="%cms_admin.routing.loader.class%">
+            <tag name="routing.loader" />
+            <argument type="service" id="cms_admin.admin_pool" />
         </service>
 
     </services>

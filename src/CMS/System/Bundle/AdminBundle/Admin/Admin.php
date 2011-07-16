@@ -18,6 +18,10 @@ class Admin extends ContainerAware
     
     protected $uniqueName;
     
+    protected $action;
+    
+    protected $actions = array();
+    
     public function defaultConfigure(){
         
         $this->setName('Object');
@@ -100,5 +104,41 @@ class Admin extends ContainerAware
     public function getList(){
         
         return $this->list;
+    }
+    
+    public function addAction($name, $service){
+        
+        $this->actions[$name] = $service;
+        
+    }
+    
+    public function hasAction($name){
+        
+        if(isset($this->actions[$name])){
+            
+            return true;
+            
+        }
+        
+        return false;
+    }
+    
+    
+    public function getAction($name){
+        
+       return $this->actions[$name];
+       
+    }
+    
+    public function getActions(){
+        
+       return $this->actions;
+       
+    }
+    
+    public function executeAction($name){
+        
+       return $this->actions[$name]->configure($this)->execute();
+       
     }
 }

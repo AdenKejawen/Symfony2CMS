@@ -7,10 +7,12 @@
     <parameters>
         
         <!-- Post Admin Class -->
-        <parameter key="cms_admin.post_admin.class">CMS\Bundle\BlogBundle\CMSAdmin\Post</parameter>
+        <parameter key="cms_admin.post_admin.class">CMS\Bundle\BlogBundle\CMSAdmin\Post\Post</parameter>
         
         <!-- PostCategory Admin Class -->
-        <parameter key="cms_admin.post_category_admin.class">CMS\Bundle\BlogBundle\CMSAdmin\PostCategory</parameter>
+        <parameter key="cms_admin.post_category_admin.class">CMS\Bundle\BlogBundle\CMSAdmin\PostCategory\PostCategory</parameter>
+        
+        <parameter key="cms_admin.action.cms_blog_bundle_post.action.test.class">CMS\Bundle\BlogBundle\CMSAdmin\Post\Action\TestAction</parameter>
         
     </parameters>
 
@@ -18,12 +20,23 @@
         
         <!-- Post Admin Service -->
         <service id="cms_admin.cms_blog_bundle_post" class="%cms_admin.post_admin.class%">
-            <tag name="cms_admin.admin" />
+            <tag name="cms_admin.admin" crud="true" />
+            <call method="addAction">
+                <argument>test</argument>
+                <argument type="service" id="cms_admin.action.cms_blog_bundle_post.action.test" />
+            </call>
         </service>
         
         <!-- PostCategory Admin Service -->
         <service id="cms_admin.cms_blog_bundle_post_category" class="%cms_admin.post_category_admin.class%">
-            <tag name="cms_admin.admin" />
+            <tag name="cms_admin.admin" crud="true" />
+        </service>
+        
+        <service id="cms_admin.action.cms_blog_bundle_post.action.test" class="%cms_admin.action.cms_blog_bundle_post.action.test.class%">
+            <tag name="cms_admin.action" />
+            <call method="setPattern">
+                <argument>/test</argument>
+            </call>
         </service>
 
     </services>

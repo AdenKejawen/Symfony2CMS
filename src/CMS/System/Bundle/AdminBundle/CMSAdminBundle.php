@@ -5,6 +5,7 @@ namespace CMS\System\Bundle\AdminBundle;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use CMS\System\Bundle\AdminBundle\DependencyInjection\Compiler\AddAdminsPass;
+use CMS\System\Bundle\AdminBundle\DependencyInjection\Compiler\AdminActionPass;
 
 class CMSAdminBundle extends Bundle
 {
@@ -16,5 +17,6 @@ class CMSAdminBundle extends Bundle
         parent::build($container);
 
         $container->addCompilerPass(new AddAdminsPass());
+        $container->addCompilerPass(new AdminActionPass());
     }
 }

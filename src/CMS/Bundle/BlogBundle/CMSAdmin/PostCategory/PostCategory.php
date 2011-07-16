@@ -1,6 +1,6 @@
 <?php
 
-namespace CMS\Bundle\BlogBundle\CMSAdmin;
+namespace CMS\Bundle\BlogBundle\CMSAdmin\PostCategory;
 
 use CMS\System\Bundle\AdminBundle\Admin\Admin;
 use CMS\Bundle\BlogBundle\Form\PostCategoryType;

@@ -18,12 +18,21 @@ class AddAdminsPass implements CompilerPassInterface
         $adminsIds = array();
 
         foreach ($container->findTaggedServiceIds('cms_admin.admin') as $serviceId => $tag) {
-
+            
             $uniqueName = $this->createUniqueName($serviceId);
             
             $container->getDefinition($serviceId)->addMethodCall('setContainer', array(
                 new Reference('service_container'),
             ))->addMethodCall('setUniqueName', array($uniqueName))->addMethodCall('defaultConfigure')->addMethodCall('configure');
+            
+            if($tag[0]['crud'] === true){
+                
+                $container->getDefinition($serviceId)->addMethodCall('addAction', array('list', new Reference('cms_admin.action.list')));
+                
+                $container->getDefinition($serviceId)->addMethodCall('addAction', array('new', new Reference('cms_admin.action.new')));
+                
+                $container->getDefinition($serviceId)->addMethodCall('addAction', array('edit', new Reference('cms_admin.action.edit')));
+            }
             
             $adminsIds[$this->createUniqueName($serviceId)] = $serviceId;
         }
