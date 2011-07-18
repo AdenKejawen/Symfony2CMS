@@ -61,8 +61,6 @@ class PostController extends Controller {
         $paginator->setCurrentPageNumber($this->get('request')->query->get('page', 1));
         $paginator->setItemCountPerPage(15);
         $paginator->setPageRange(5);
-
-        //$posts = $query->getResult();
         
         return $this->render('CMSBlogBundle:Post:list.html.twig', array('paginator' => $paginator));
         

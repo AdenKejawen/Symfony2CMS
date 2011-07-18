@@ -1,3 +1,44 @@
+{% extends "::layout.html.twig" %}
+
+{% block content %}
 Hi! I am LIST action )
 
 Name: {{ name }}
+
+{% if paginator %}
+
+<table border="1">
+    <tr>
+        {% for field in fields %}
+        <th>{{ field }}</th>
+        {% endfor %}
+        <th>Actions</th>
+    </tr>
+    {% for item in paginator %}
+    <tr>
+        {% for field in fields %}
+            <td>{{ item[field] }}</td>
+        {% endfor %}
+        <td>
+            {% for action, route in item_list_actions %}
+                <a href="{{ path(route, {'id': item.id}) }}">{{ action }}</a>
+            {% endfor %}
+    </tr>
+    {% endfor %}
+</table>
+<div>
+    {% for action, route in list_actions %}
+        <a href="{{ path(route) }}">{{ action }}</a>
+    {% endfor %}
+</div>
+<div id="paginator">
+    {{ paginator|paginate }}
+</div>
+{% else %}
+No item found
+{% for action, route in list_actions %}
+    <a href="{{ path(route) }}">{{ action }}</a>
+{% endfor %}
+{% endif %}
+
+{% endblock %}

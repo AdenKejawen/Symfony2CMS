@@ -13,13 +13,12 @@ class Post extends Admin
        
        $this->setGroup('Blog');
        
-       $this->setEntity('CMSBlogBundle:Post');
+       $this->setEntityClass('CMS\Bundle\BlogBundle\Entity\Post');
         
-       $this->setForm(new PostType);
+       //$this->setForm(new PostType);
        
-       $this->setList(array(
-                  'title',
-                  'body'
-               ));
+       $this->getAction('list')->setListFields(array('id', 'title', 'body'));
+       
+       
     }   
 }

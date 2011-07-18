@@ -12,9 +12,8 @@ class AdminRouting extends Loader
     private $adminPool;
 
     public function __construct(AdminPool $adminPool)
-    {
+    {     
         $this->adminPool = $adminPool;
-
     }
 
     public function supports($resource, $type = null)
@@ -31,7 +30,7 @@ class AdminRouting extends Loader
         
         $admins = $this->adminPool->getAdmins();
         
-        foreach($admins as $admin){
+        foreach($admins as $serviceId => $admin){
             
             $pattern = $admin->getUniqueName();
             
@@ -50,6 +49,7 @@ class AdminRouting extends Loader
                 $route = new Route($pattern.$action->getPattern(), $defaults, $requirements);
                 
                 $collection->add($routeName.'_'.$name, $route);
+                
             }
             
             

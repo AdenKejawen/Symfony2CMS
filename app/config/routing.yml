@@ -20,6 +20,10 @@ fos_user_change_password:
 cms_admin:
     resource: "@CMSAdminBundle/Resources/config/routing.yml"
     prefix:   /admin
+    
+_cms_admin:
+    resource: .
+    prefix:   /admin
     type:     cms_admin
 
 blog:
@@ -28,15 +32,6 @@ blog:
 _imagine:
     resource: .
     type:     imagine
-
-sonata_admin:
-    resource: '@SonataAdminBundle/Resources/config/routing/sonata_admin.xml'
-    prefix: /sonata_admin
-
-_sonata_admin:
-    resource: .
-    type: sonata_admin
-    prefix: /sonata_admin
 
 homepage:
    pattern:  /

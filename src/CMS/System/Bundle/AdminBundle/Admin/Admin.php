@@ -3,6 +3,7 @@
 namespace CMS\System\Bundle\AdminBundle\Admin;
 
 use Symfony\Component\DependencyInjection\ContainerAware;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class Admin extends ContainerAware
 {
@@ -21,6 +22,8 @@ class Admin extends ContainerAware
     protected $action;
     
     protected $actions = array();
+    
+    protected $routes = array();
     
     public function defaultConfigure(){
         
@@ -58,13 +61,13 @@ class Admin extends ContainerAware
         return $this->config['name'];
     }
     
-    public function setEntity($entity){
+    public function setEntityClass($entity){
         
         $this->entity = $entity;
         
     }
     
-    public function getEntity(){
+    public function getEntityClass(){
         
         return $this->entity;
     }
@@ -86,25 +89,40 @@ class Admin extends ContainerAware
       
     }
     
-    public function setFilter($filter){
+    public function registerRoutesForActions(){
         
-        $this->filter = $filter;
+        $routeName = str_replace('-', '_', $this->getUniqueName());
+            
+        $routeName = 'cms_admin_'.$routeName;
+        
+        foreach($this->getActions() as $name => $action){
+          
+          $this->addRoute($name, $routeName.'_'.$name);
+        }
+        
     }
     
-    public function getFilter(){
+    public function addRoute($actionName, $routeName){
         
-       return $this->filter;
+        $this->routes[$actionName] = $routeName;
+        
     }
     
-    public function setList(Array $list){
+    public function getRoute($actionName){
         
-        $this->list = $list;
+        if(!isset($this->routes[$actionName])){
+            
+           throw new \LogicException(sprintf('Route for action %s not found', $actionName));
+       }
+        
+       return $this->routes[$actionName];
     }
     
-    public function getList(){
+    public function getRoutes(){
         
-        return $this->list;
+        return $this->routes;
     }
+    
     
     public function addAction($name, $service){
         
@@ -125,6 +143,11 @@ class Admin extends ContainerAware
     
     
     public function getAction($name){
+       
+       if(!isset($this->actions[$name])){
+            
+           throw new \LogicException(sprintf('Action %s not found', $name));
+       }
         
        return $this->actions[$name];
        
@@ -138,7 +161,12 @@ class Admin extends ContainerAware
     
     public function executeAction($name){
         
-       return $this->actions[$name]->configure($this)->execute();
+        if(!isset($this->actions[$name])){
+            
+           throw new \LogicException(sprintf('Action %s not found', $name));
+       }
+        
+       return $this->actions[$name]->defaultConfigure($this)->execute();
        
     }
 }

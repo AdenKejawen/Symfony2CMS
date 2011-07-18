@@ -13,12 +13,9 @@ class PostCategory extends Admin
        
        $this->setGroup('Blog');
        
-       $this->setEntity('CMSBlogBundle:PostCategory');
+       $this->setEntityClass('CMS\Bundle\BlogBundle\Entity\PostCategory');
         
        $this->setForm(new PostCategoryType);
        
-       $this->setList(array(
-                  'title'
-               ));
     }   
 }

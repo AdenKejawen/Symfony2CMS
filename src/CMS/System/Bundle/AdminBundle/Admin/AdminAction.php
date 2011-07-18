@@ -10,11 +10,30 @@ class AdminAction extends Controller
     
     protected $pattern = '';
     
-    public function configure($admin){
+    protected $config;
+    
+    public function defaultConfigure($admin){
         
-        $this->admin = $admin;    
+        $this->setAdmin($admin);   
+        
+        $this->configure(); 
         
         return $this;
+    }
+    
+    public function configure(){}
+    
+    public function setAdmin($admin){
+        
+        $this->admin = $admin;
+        
+    }
+    
+    
+    public function getAdmin(){
+        
+       return $this->admin;
+        
     }
     
     public function setPattern($pattern){
@@ -26,6 +45,16 @@ class AdminAction extends Controller
     public function getPattern(){
         
         return $this->pattern;
+    }
+    
+    public function setConfig($config = array()){
+        
+        $this->config = $config;
+    }
+    
+    public function getConfig(){
+        
+       return $this->config;
     }
     
     public function execute(){

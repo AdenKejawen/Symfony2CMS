@@ -19,7 +19,6 @@ $loader->registerNamespaces(array(
     'Imagine'          => __DIR__.'/../vendor/imagine/lib',
     'Avalanche'        => __DIR__.'/../vendor/bundles',
     'Knp'              => __DIR__.'/../vendor/bundles',
-    'Sonata'           => __DIR__.'/../vendor/bundles',
     'Zend'             => __DIR__.'/../vendor/zend/library',
     'CMS'              => __DIR__.'/../src',
     'CMSDoctrineExt'   => __DIR__.'/../src/CMS/System/Bundle/DoctrineExtensionsBundle',
