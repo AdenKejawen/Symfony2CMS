@@ -5,3 +5,4 @@ web/uploads/*
 web/cache/*
 .settings
 .project
+.idea/*
