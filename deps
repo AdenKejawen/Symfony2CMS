@@ -79,3 +79,4 @@
 [PaginatorBundle]
     git=http://github.com/knplabs/KnpPaginatorBundle.git
     target=/bundles/Knp/Bundle/PaginatorBundle
+    
