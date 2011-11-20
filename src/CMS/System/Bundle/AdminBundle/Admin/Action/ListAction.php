@@ -24,8 +24,6 @@ class ListAction extends AdminAction
     
     public function execute(){
         
-        
-        
         $name = $this->getAdmin()->getName();
         
         $fields = $this->getFields();
@@ -34,8 +32,7 @@ class ListAction extends AdminAction
         
         $listActions = $this->getListActions();
         
-        $repository = $this->getDoctrine()->getRepository($this->admin->getEntityClass());
-        
+        $repository = $this->getDoctrine()->getRepository($this->getAdmin()->getEntityClass());
         
         $query = $repository->createQueryBuilder('a')
                             ->select($this->getFieldsForSelect())

@@ -1,7 +1,8 @@
 <?php
 
 namespace CMS\System\Bundle\UserBundle\Entity;
-use FOS\UserBundle\Entity\User as BaseUser;
+#use FOS\UserBundle\Entity\User as BaseUser;
+use Sonata\UserBundle\Entity\BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -18,7 +19,7 @@ class User extends BaseUser
     protected $id;
     
     /**
-     * @ORM\ManyToMany(targetEntity="CMS\System\Bundle\UserBundle\Entity\Group")
+     * @ORM\ManyToMany(targetEntity="Group")
      * @ORM\JoinTable(name="fos_user_group",
      *      joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="group_id", referencedColumnName="id")}

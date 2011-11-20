@@ -88,3 +88,11 @@ avalanche_imagine:
         thumb:
             type:    thumbnail
             options: { size: [120, 90], mode: outbound }
+
+sonata_admin:
+    templates:
+        layout:  CMSSonataExtraBundle::layout.html.twig
+            
+sonata_doctrine_orm_admin:
+    templates:
+        form: [ CMSSonataExtraBundle:Form:form_admin_fields.html.twig ]

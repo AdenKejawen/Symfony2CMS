@@ -1,0 +1,19 @@
+parameters:
+#    cms_news.example.class: CMS\Bundle\NewsBundle\Example
+
+services:
+   cms.news.admin.news:
+      class: CMS\Bundle\NewsBundle\Admin\NewsAdmin
+      tags:
+        - { name: sonata.admin, manager_type: orm, group: cms_news, label: News }
+      arguments: [null, CMS\Bundle\NewsBundle\Entity\News, CMSNewsBundle:NewsAdmin]
+   cms.news.admin.category:
+      class: CMS\Bundle\NewsBundle\Admin\CategoryAdmin
+      tags:
+        - { name: sonata.admin, manager_type: orm, group: cms_news, label: Category }
+      arguments: [null, CMS\Bundle\NewsBundle\Entity\Category, CMSNewsBundle:CategoryAdmin]
+   cms.news.admin.tags:
+      class: CMS\Bundle\NewsBundle\Admin\TagsAdmin
+      tags:
+        - { name: sonata.admin, manager_type: orm, group: cms_news, label: Tags }
+      arguments: [null, CMS\Bundle\NewsBundle\Entity\Tags, CMSNewsBundle:TagsAdmin]

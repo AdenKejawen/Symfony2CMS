@@ -1,0 +1,21 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+
+    <parameters>
+        <parameter key="sonata.user.admin.user.entity">CMS\System\Bundle\UserBundle\Entity\User</parameter>
+        <parameter key="sonata.user.admin.group.entity">CMS\System\Bundle\UserBundle\Entity\Group</parameter>
+    </parameters>
+    <!--
+    <services>
+        <service id="cms_sonata_extra.example" class="%cms_sonata_extra.example.class%">
+            <argument type="service" id="service_id" />
+            <argument>plain_value</argument>
+            <argument>%parameter_name%</argument>
+        </service>
+    </services>
+    -->
+</container>

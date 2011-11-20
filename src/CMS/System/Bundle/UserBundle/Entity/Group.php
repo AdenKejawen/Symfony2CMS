@@ -1,7 +1,8 @@
 <?php
 
 namespace CMS\System\Bundle\UserBundle\Entity;
-use FOS\UserBundle\Entity\Group as BaseGroup;
+#use FOS\UserBundle\Entity\Group as BaseGroup;
+use Sonata\UserBundle\Entity\BaseGroup;
 use Doctrine\ORM\Mapping as ORM;
 
 /**

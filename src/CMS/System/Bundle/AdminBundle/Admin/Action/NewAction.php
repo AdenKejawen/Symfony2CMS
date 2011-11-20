@@ -8,7 +8,7 @@ class NewAction extends AdminAction
 {   
     public function execute(){
         
-        $name = $this->admin->getName();
+        $name = $this->getAdmin()->getName();
         
         return $this->render('CMSAdminBundle:Action:new.html.twig', array('name' => $name));
     }   

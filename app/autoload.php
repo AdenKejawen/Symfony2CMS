@@ -18,12 +18,13 @@ $loader->registerNamespaces(array(
     'FOS'              => __DIR__.'/../vendor/bundles',
     'Imagine'          => __DIR__.'/../vendor/imagine/lib',
     'Avalanche'        => __DIR__.'/../vendor/bundles',
-    'Knp'              => __DIR__.'/../vendor/bundles',
+    'Knp'              => array(__DIR__.'/../vendor/bundles', __DIR__.'/../vendor/knp/menu/src'),
     'Zend'             => __DIR__.'/../src/zend/library',
     'CMS'              => __DIR__.'/../src',
     'CMSDoctrineExt'   => __DIR__.'/../src/CMS/System/Bundle/DoctrineExtensionsBundle',
-    
+    'Sonata'           => __DIR__.'/../vendor/bundles',
 ));
+
 $loader->registerPrefixes(array(
     'Twig_Extensions_' => __DIR__.'/../vendor/twig-extensions/lib',
     'Twig_'            => __DIR__.'/../vendor/twig/lib',
